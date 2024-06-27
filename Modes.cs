@@ -26,6 +26,10 @@ namespace proc_tail
             }
             return managementObjects;
         }
+
+        public static void Ask() {
+
+        }
     }
 
     public static class Modes
@@ -41,6 +45,7 @@ namespace proc_tail
             parents.Add(proc);
 
             List<SimplifiedProcess> sp = new List<SimplifiedProcess>();
+
             parents.ForEach(p => { sp.Add((SimplifiedProcess)p); });
 
             for (int i = 0; i < sp.Count-1; i++)
@@ -48,9 +53,10 @@ namespace proc_tail
                 sp[i].Children = new SimplifiedProcess[1] { sp[i+1] };
             }
             var md = MD5.Create();
-            string path = AppDomain.CurrentDomain.BaseDirectory + Convert.ToHexString(md.ComputeHash(Encoding.UTF8.GetBytes($"{sp[0].Name}{sp[0].Pid}"))) +".json";
+            string path = AppDomain.CurrentDomain.BaseDirectory + $"{proc["Name"]}-{proc["ProcessId"]}.json";
 
             Console.WriteLine($"Json file created at {path}");
+            Console.WriteLine("===========================================================");
 
             StreamWriter sw = new StreamWriter(path);
             sw.Write(JsonSerializer.Serialize(sp[0]));
@@ -59,6 +65,7 @@ namespace proc_tail
         public static void Monitor(ManagementObject proc)
         {
             Console.WriteLine("Coming soon...");
+            Console.WriteLine("===========================================================");
         }
     }
 }

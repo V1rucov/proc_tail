@@ -10,12 +10,17 @@ namespace proc_tail
         public string ExecutablePath { get; set; }
         public string Pid { get; set; }
 
-        public static explicit operator SimplifiedProcess(ManagementObject proc) {
-            return new SimplifiedProcess() { 
+        public static implicit operator SimplifiedProcess(ManagementObject proc) {
+            Console.WriteLine(proc["Name"]);
+            SimplifiedProcess sp = new SimplifiedProcess()
+            {
                 Name = proc["Name"].ToString(),
-                ExecutablePath = proc["ExecutablePath"].ToString(),
                 Pid = proc["ProcessId"].ToString()
             };
+            if (proc["ExecutablePath"] != null) sp.ExecutablePath = proc["ExecutablePath"].ToString();
+            return sp;
+
         }
+
     }
 }
