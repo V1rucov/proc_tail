@@ -11,11 +11,11 @@ namespace proc_tail
     {
         private int _ProcessId = 0;
         private string _ProcessName = null;
-        public int ProcessId {
+        public int? ProcessId {
             get => _ProcessId;
             
             set {
-                _ProcessId = value;
+                _ProcessId = value.Value;
             }
         }
         public string ProcessName

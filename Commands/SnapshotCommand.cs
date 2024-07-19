@@ -1,4 +1,5 @@
 ﻿using proc_tail.Viewers;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,20 +21,21 @@ namespace proc_tail.Commands
         public override ApplicationContext Context { get; set; }
 
         public override void Execute() {
-            var proc = Viewer.GetProcess(Context.ProcessId, Context.ProcessName);
-            Console.WriteLine($"Process: {proc.Name}");
-            Console.WriteLine();
-
-            //TODO: GetParents
-
+            var proc = Viewer.GetProcess(Context.ProcessId.Value, Context?.ProcessName);
+            AnsiConsole.Markup($"\tProcess: {proc.Name}\n");
+            GetParents(proc);
             string path = AppDomain.CurrentDomain.BaseDirectory + $"{proc.Name}-{proc.Pid}.json";
-
-            Console.WriteLine($"Json file created at {path}");
-            Console.WriteLine("===========================================================");
-
+            AnsiConsole.Markup($"\tJson file (process tree) created at {path}\n");
+            AnsiConsole.Write(new Rule());
             using (StreamWriter sw = new StreamWriter(path)) {
                 sw.Write(JsonSerializer.Serialize(proc));
             }
+        }
+
+        void GetParents(SimplifiedProcess proc) {
+            if (proc == null || proc.Parent.Pid == -1 || proc.Pid == 4) return;
+            proc.Parent = Viewer.GetProcess(proc.Parent.Pid);
+            GetParents(proc.Parent);
         }
     }
 }

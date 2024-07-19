@@ -10,5 +10,6 @@ namespace proc_tail.Viewers
     {
         public abstract SimplifiedProcess Process { get; set; }
         public abstract SimplifiedProcess GetProcess(int ProcessId, string ProcessName = null);
+
     }
 }
