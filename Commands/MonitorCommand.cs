@@ -16,12 +16,9 @@ namespace proc_tail.Commands
             Context = _Context;
         }  
 
-        AbstractViewer Viewer { get; set; }
-        public override ApplicationContext Context { get; set; }
-
         public override void Execute()
         {
-            var proc = Viewer.GetProcess(Context.ProcessId.Value, Context.ProcessName);
+            var proc = Viewer.GetProcessInfo(Context.ProcessId.Value, Context.ProcessName);
             Console.WriteLine($"Process: {proc.Name}");
             Console.WriteLine();
 

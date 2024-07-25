@@ -8,8 +8,8 @@ namespace proc_tail.Viewers
 {
     public abstract class AbstractViewer
     {
-        public abstract SimplifiedProcess Process { get; set; }
-        public abstract SimplifiedProcess GetProcess(int ProcessId, string ProcessName = null);
+        public SimplifiedProcess Process { get; set; }
+        public abstract SimplifiedProcess GetProcessInfo(int ProcessId, string ProcessName = null);
 
     }
 }

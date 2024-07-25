@@ -15,11 +15,11 @@ namespace proc_tail
             SimplifiedProcess sp = new SimplifiedProcess();
 
             sp.Name = proc["Name"].ToString();
-            sp.Pid = Int32.Parse(proc["ProcessId"].ToString());
-            if(proc["ExecutablePath"] != null) sp.ExecutablePath = proc["ExecutablePath"].ToString();
+            sp.Pid = int.Parse(proc["ProcessId"].ToString());
+            if (proc["ExecutablePath"] != null) sp.ExecutablePath = proc["ExecutablePath"].ToString();
 
             sp.Parent = new SimplifiedProcess();
-            sp.Parent.Pid = Int32.Parse(proc["ParentProcessId"].ToString() ?? "-1");
+            sp.Parent.Pid = int.Parse(proc["ParentProcessId"].ToString() ?? "-1");
             return sp;
         }
     }

@@ -17,11 +17,9 @@ namespace proc_tail.Commands
             Context = _Context;
         }
 
-        AbstractViewer Viewer { get; set; }
-        public override ApplicationContext Context { get; set; }
-
         public override void Execute() {
-            var proc = Viewer.GetProcess(Context.ProcessId.Value, Context?.ProcessName);
+            var proc = Viewer.GetProcessInfo(Context.ProcessId.Value, Context?.ProcessName);
+            if (proc == null) throw new NullReferenceException("process not found");
             AnsiConsole.Markup($"\tProcess: {proc.Name}\n");
             GetParents(proc);
             string path = AppDomain.CurrentDomain.BaseDirectory + $"{proc.Name}-{proc.Pid}.json";
@@ -34,7 +32,7 @@ namespace proc_tail.Commands
 
         void GetParents(SimplifiedProcess proc) {
             if (proc == null || proc.Parent.Pid == -1 || proc.Pid == 4) return;
-            proc.Parent = Viewer.GetProcess(proc.Parent.Pid);
+            proc.Parent = Viewer.GetProcessInfo(proc.Parent.Pid);
             GetParents(proc.Parent);
         }
     }
