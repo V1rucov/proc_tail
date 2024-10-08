@@ -3,20 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
-    public class AnalyzeRegistryCommand : AbstractCommand
+    public class AnalyzeRegistryCommand : ICommand
     {
-        public AnalyzeRegistryCommand(AbstractViewer _Viewer, ApplicationContext _Context)
+        public Regex Command { get; set; } = new Regex(@"process reg (\d+)");
+
+        public void Execute(string command)
         {
-            Viewer = _Viewer;
-            Context = _Context;
-        }
-        public override void Execute()
-        {
-            //string machineUsersRoot = "HKEY_USERS";
+            string machineUsersRoot = "HKEY_USERS";
             string currentUserRoot = "HKEY_CURRENT_USER";
             string machineRoot = "HKEY_LOCAL_MACHINE";
 

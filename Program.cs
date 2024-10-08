@@ -1,23 +1,18 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using proc_tail.Commands;
 using proc_tail.Viewers;
 using Spectre.Console;
 
 namespace proc_tail {
     public static class Program {
-        static AbstractCommand command;
-        static AbstractViewer Viewer;
-        static ApplicationContext Context = new ApplicationContext();
+        static ICommand command;
 
-        static DictionaryWithDefault<char, AbstractCommand> Commands = new DictionaryWithDefault<char, AbstractCommand>() {
-            {'A', new AnalyzeRegistryCommand(Viewer, Context) },
-            {'L', new MonitorCommand(Viewer, Context) },
-            {'S', new SnapshotCommand(Viewer, Context) }
-        };
-
-        static DictionaryWithDefault<char, AbstractViewer> Sources = new DictionaryWithDefault<char, AbstractViewer>() {
-            {'J', new JournalViewer() },
-            {'W', new WMIViewer() }
+        static DictionaryWithDefault<Regex, ICommand> Commands = new DictionaryWithDefault<Regex, ICommand>() {
+            {new Regex(@"process reg (\d)+"), new AnalyzeRegistryCommand() },
+            {new Regex(@"process tree (\d)+"), new TreeSnapshotCommand() },
+            {new Regex(@"process list"), new ProcessListCommand() },
+            {new Regex(@"easter egg"), new EasterEggCommand() }
         };
 
         static Panel Header = new Panel("[yellow]An process inspection tool\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
@@ -30,16 +25,10 @@ namespace proc_tail {
             {
                 try
                 {
-                    char m = AnsiConsole.Ask<char>("What to do?: \n\tPress L to start live-mode. \n\tPress S to take snapshot. \n\tPress A to analyzer process's execution origin");
-                    command = Commands[m];
-
-                    char src = AnsiConsole.Ask<char>("Choose source: \n\tJ to inspect security journal. \n\tW to inspect live processes.");
-                    command.Viewer = Sources[src];
-
-                    Context.ProcessId = AnsiConsole.Ask<int?>("PID: ");
-                    Context.ProcessName = AnsiConsole.Ask<string>("Process name (only for journal source): ");
-
-                    command.Execute();
+                    string _m = AnsiConsole.Ask<string>($"{Environment.UserName}:> ");
+                    command = Commands.FirstOrDefault(c => c.Key.Match(_m).Success).Value;
+                    if (command != null) command.Execute(_m);
+                    else AnsiConsole.WriteLine("\t wrong command");
                 }
                 catch (Exception ex)
                 {
@@ -49,9 +38,12 @@ namespace proc_tail {
                             AnsiConsole.Markup("[red]ERROR: wrong PID. Process not found.[/]");
                             break;
                         default:
-                            AnsiConsole.Markup($"[red]ERROR: {ex.Message}[/]\n");
+                            AnsiConsole.Markup($"[red]ERROR: {ex.Message}[/]\n {ex.InnerException} \n\n {ex.StackTrace}");
                             break;
                     }
+                    Console.WriteLine();
+                }
+                finally {
                     AnsiConsole.Write(new Rule());
                 }
             }
