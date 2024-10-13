@@ -12,6 +12,7 @@ namespace proc_tail
 
         public static implicit operator SimplifiedProcess(ManagementObject proc)
         {
+            //TODO: GetOwner
             SimplifiedProcess sp = new SimplifiedProcess();
 
             sp.Name = proc["Name"].ToString();

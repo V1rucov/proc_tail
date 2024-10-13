@@ -12,7 +12,7 @@ namespace proc_tail.Commands
 {
     internal class ProcessListCommand : ICommand
     {
-        public Regex Command { get; set; } = new Regex(@"");
+        public Regex Command { get; set; } = new Regex(@"process list");
 
         public void Execute(string command)
         {
