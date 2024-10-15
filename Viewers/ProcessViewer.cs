@@ -1,10 +1,11 @@
 ﻿using System.Management;
+using proc_tail.Types;
 
 namespace proc_tail.Viewers
 {
-    public class WMIViewer : AbstractViewer
-    { 
-        public override SimplifiedProcess GetProcessInfo(int ProcessId, string ProcessName = null) 
+    public class ProcessViewer : IViewer<int,SimplifiedProcess>
+    {
+        public SimplifiedProcess GetInfo(int ProcessId) 
         {
             if (ProcessId == -1) return null;
             var mos = new ManagementObjectSearcher($"SELECT * FROM Win32_Process WHERE ProcessId = {ProcessId}");

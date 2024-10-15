@@ -24,7 +24,7 @@ namespace proc_tail.Commands
             table.AddColumn("Name");
             table.AddColumn("Executable");
 
-            AnsiConsole.WriteLine("\tAll processes:");
+            AnsiConsole.WriteLine("[*] All processes:");
             foreach (var cc in array) table.AddRow(cc["ProcessId"].ToString(), cc["Name"].ToString(), cc["ExecutablePath"]?.ToString() ?? "null");
             AnsiConsole.Write(table);
         }

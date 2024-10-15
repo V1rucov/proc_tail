@@ -1,9 +1,10 @@
 ﻿using System.Management;
 
-namespace proc_tail
+namespace proc_tail.Types
 {
     public class SimplifiedProcess
     {
+        public string Owner { get; set; }
         public SimplifiedProcess?[] Children { get; set; }
         public SimplifiedProcess Parent { get; set; }
         public string Name { get; set; }

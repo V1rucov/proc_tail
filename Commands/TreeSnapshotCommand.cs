@@ -1,4 +1,5 @@
-﻿using proc_tail.Viewers;
+﻿using proc_tail.Types;
+using proc_tail.Viewers;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,12 @@ namespace proc_tail.Commands
 {
     internal class TreeSnapshotCommand : ICommand
     {
-
         public Regex Command { get; set; } = new Regex(@"process tree (\d+)");
 
         public void Execute(string command) {
             int PID = Int32.Parse(Command.Match(command).Groups[1].Value);
-            Console.WriteLine(Command.Match(command).Groups[1].Value);
-            var Viewer = new WMIViewer();
-            var proc = Viewer.GetProcessInfo(PID);
+            var Viewer = new ProcessViewer();
+            SimplifiedProcess proc = Viewer.GetInfo(PID);
             if (proc == null) throw new NullReferenceException("process not found");
             AnsiConsole.Markup($"\tProcess: {proc.Name}\n");
             GetParents(proc, Viewer);
@@ -31,12 +30,12 @@ namespace proc_tail.Commands
             }
         }
 
-        void GetParents(SimplifiedProcess proc, AbstractViewer Viewer) {
+        void GetParents(SimplifiedProcess proc, IViewer<int, SimplifiedProcess> Viewer) {
             if (proc == null || proc.Parent.Pid == -1 || proc.Pid == 4) return;
             if (proc.ExecutablePath == null) return;
             if (Regex.Match(proc.ExecutablePath, @"System32\\wininit\.exe").Success) return;
 
-            proc.Parent = Viewer.GetProcessInfo(proc.Parent.Pid);
+            proc.Parent = (SimplifiedProcess) Viewer.GetInfo(proc.Parent.Pid);
             GetParents(proc.Parent, Viewer);
         }
     }

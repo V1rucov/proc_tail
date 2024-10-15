@@ -27,7 +27,7 @@ namespace proc_tail {
             {
                 try
                 {
-                    string _m = AnsiConsole.Ask<string>($"{Environment.UserName}:> ");
+                    string _m = AnsiConsole.Ask<string>($"[yellow]{Environment.UserName}[/]:> ");
                     command = Commands.FirstOrDefault(c => c.Command.Match(_m).Success);
                     if (command != null) command.Execute(_m);
                     else AnsiConsole.WriteLine("\t wrong command");
