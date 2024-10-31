@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using proc_tail.Types;
 using proc_tail.Viewers;
 using Spectre.Console;
 using System;
@@ -12,35 +13,32 @@ namespace proc_tail.Commands
 {
     public class AnalyzeRegistryCommand : ICommand
     {
-        const string MachineUsersRoot = "HKEY_USERS";
-        const string CurrentUserRoot = "HKEY_CURRENT_USER";
-        const string MachineRoot = "HKEY_LOCAL_MACHINE";
-
-        const string RunPath = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-        const string RunOncePath = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce";
-
-        public Regex Command { get; set; } = new Regex(@"reg check");
+        public Regex Command { get; set; } = new Regex(@"reg list");
 
         public void Execute(string command)
         {
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(RunPath);
-            AnsiConsole.WriteLine("[*] registry machine run path:");
-            key.GetValueNames()?.ToList().ForEach(cc => Console.WriteLine($"\t{cc}"));
-            Console.WriteLine();
+            AnsiConsole.WriteLine("[*] Important registry keys:");
 
-            key = Registry.LocalMachine.OpenSubKey(RunOncePath);
-            AnsiConsole.WriteLine("[*] registry machine run once path:");
-            key.GetValueNames()?.ToList().ForEach(cc => Console.WriteLine($"\t{cc}"));
-            Console.WriteLine();
+            RegistryViewer registryViewer = new RegistryViewer();
+            Table table = new Table();
+            table.AddColumn("key");
+            table.AddColumn("value");
 
-            key = Registry.CurrentUser.OpenSubKey(RunPath);
-            AnsiConsole.WriteLine("[*] registry current user run path:");
-            key.GetValueNames()?.ToList().ForEach(cc => Console.WriteLine($"\t{cc}"));
-            Console.WriteLine();
+            var res = registryViewer.GetManyObjects(new string[] {MainRegistryKeys.CurrentUserRoot,MainRegistryKeys.RunPath });
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath }));
 
-            key = Registry.CurrentUser.OpenSubKey(RunOncePath);
-            AnsiConsole.WriteLine("[*] registry current user run once path:");
-            key.GetValueNames()?.ToList().ForEach(cc => Console.WriteLine($"\t{cc}"));
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath }));
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
+
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
+            //res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript }));
+
+            foreach (var cc in res) {
+                table.AddRow(cc[0].ToString(), cc[1].ToString());
+                //Console.WriteLine(cc[0]+" " + cc[1]);
+            }
+            AnsiConsole.Write(table);
+            
             Console.WriteLine();
         }
     }
