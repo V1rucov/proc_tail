@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using proc_tail.Types;
+using NTRegistry;
 
 namespace proc_tail.Viewers
 {
@@ -22,22 +23,24 @@ namespace proc_tail.Viewers
         /// <returns>name - value</returns>
         public string[] GetSingleObject(string[] args)
         {
-            RegistryKey subkey = Registry.CurrentUser;
-            switch (args[0]) {
+            var ntkey = NtRegistry.CurrentUser;
+            switch (args[0].Split("\\")[0]) {
                 case "HKEY_USERS":
-                    subkey = Registry.Users;
+                    ntkey = NtRegistry.Users;
                     break;
                 case "HKEY_CURRENT_USER":
-                    subkey = Registry.CurrentUser;
+                    ntkey = NtRegistry.CurrentUser;
                     break;
                 case "HKEY_LOCAL_MACHINE":
-                    subkey = Registry.LocalMachine;
+                    ntkey = NtRegistry.LocalMachine;
                     break;
             }
 
             string[] result = {"",""};
-            result[0] = args[0] + " - " + args[1];
-            result[1] = subkey.OpenSubKey(args[1]).GetValue(args[2]).ToString();
+            result[0] = args[0];
+            Console.WriteLine(args[0]);
+            ntkey.OpenSubKey(args[0].Replace(args[0].Split("\\").Last(),""));
+            result[1] = ntkey.GetValue(args[0].Split("\\").Last()).ToString();
             return result;
         }
 
@@ -48,30 +51,29 @@ namespace proc_tail.Viewers
         /// <returns>List of 'name - value'</returns>
         public List<string[]> GetManyObjects(string[] args)
         {
-            UIntPtr keyPointer = HKEY_LOCAL_MACHINE;
-            RegistryKey subkey = Registry.CurrentUser;
+            var key = NtRegistry.CurrentUser;
             switch (args[0])
             {
                 case "HKEY_USERS":
-                    subkey = Registry.Users;
+                    key = NtRegistry.Users;
                     break;
                 case "HKEY_CURRENT_USER":
-                    subkey = Registry.CurrentUser;
-                    keyPointer = HKEY_CURRENT_USER;
+                    key = NtRegistry.CurrentUser;
                     break;
                 case "HKEY_LOCAL_MACHINE":
-                    subkey = Registry.LocalMachine;
+                    key = NtRegistry.LocalMachine;
                     break;
             }
 
             List<string[]> results = new List<string[]>();
 
-            var keys = subkey.OpenSubKey(args[1]);
+            var keys = key.OpenSubKey(args[1]);
             foreach (var cc in keys.GetValueNames())
             {
-                string value = keys.GetValue(cc)?.ToString() ?? "Hidden or Empty Value";
+                string value = keys.GetValue(cc)?.ToString() ?? "hidden";
                 results.Add(new string[] { $"{args[0]}\\{args[1]}\\{cc}", value });
             }
+            key.Close();
             return results;
         }
     }

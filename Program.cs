@@ -14,10 +14,11 @@ namespace proc_tail {
             new AnalyzeRegistryCommand(),
             new EasterEggCommand(),
             new ProcessListCommand(),
-            new TreeSnapshotCommand()
+            new TreeSnapshotCommand(),
+            new ServiceListCommand()
         };
 
-        static Panel Header = new Panel("[yellow]An process inspection tool\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
+        static Panel Header = new Panel("[yellow]Windows Persistence Checker\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
 
         public static void Main() {
             Header.Header = new PanelHeader("proc_tail");
@@ -43,7 +44,7 @@ namespace proc_tail {
                             break;
                         default:
                         #if DEV
-                            AnsiConsole.Markup($"[red]ERROR: {ex.Message}[/]\n {ex.InnerException} \n\n {ex.StackTrace}");
+                            Console.WriteLine($"ERROR: {ex.Message}\n {ex?.InnerException} \n\n {ex?.StackTrace}");
                         #endif
                         #if PROD
                             AnsiConsole.Markup($"[red]ERROR: {ex.Message}[/]\n");

@@ -9,17 +9,23 @@
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
-    <ApplicationIcon>vecteezy_whale-tail-symbol_6720669.ico</ApplicationIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="vecteezy_whale-tail-symbol_6720669.ico" />
+    <Content Include="logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Spectre.Console" Version="0.49.1" />
     <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NtRegistry.NET">
+      <HintPath>bin\Debug\net8.0\NtRegistry.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

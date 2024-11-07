@@ -24,18 +24,20 @@ namespace proc_tail.Commands
             table.AddColumn("key");
             table.AddColumn("value");
 
-            var res = registryViewer.GetManyObjects(new string[] {MainRegistryKeys.CurrentUserRoot,MainRegistryKeys.RunPath });
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath }));
+            var res = new List<string[]>();
+            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot,MainRegistryKeys.RunPath]));
+            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath]));
 
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath }));
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
+            //res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath]));
+            //res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
 
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
-            //res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript }));
+            //res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript }));
+
 
             foreach (var cc in res) {
-                table.AddRow(cc[0].ToString(), cc[1].ToString());
-                //Console.WriteLine(cc[0]+" " + cc[1]);
+                table.AddRow(cc[0], cc[1]);
+                Console.WriteLine($"{cc[0]} - {cc[1]}");
             }
             AnsiConsole.Write(table);
             
