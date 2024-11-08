@@ -28,15 +28,16 @@ namespace proc_tail.Commands
             res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot,MainRegistryKeys.RunPath]));
             res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath]));
 
-            //res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath]));
-            //res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
+            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath]));
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
 
-            //res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
+            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
             res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript }));
 
 
             foreach (var cc in res) {
-                table.AddRow(cc[0], cc[1]);
+                if (cc[1] == "hidden") cc[1] = registryViewer.GetSingleObject(cc)[1];
+                //table.AddRow(cc[0], cc[1]);
                 Console.WriteLine($"{cc[0]} - {cc[1]}");
             }
             AnsiConsole.Write(table);

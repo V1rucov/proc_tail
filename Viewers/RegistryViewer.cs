@@ -36,11 +36,19 @@ namespace proc_tail.Viewers
                     break;
             }
 
+            var splitted = args[0].Split("\\");
+            List<string> middlePath = splitted.Skip(1).SkipLast(2).ToList();
+            string path = string.Join("\\", middlePath);
+            string name = splitted[splitted.Count() - 2];
+
+            Console.WriteLine($"==== {path}");
+            Console.WriteLine($"==== {name}");
+
+            var subkey = ntkey.OpenSubKey(path);
+
             string[] result = {"",""};
             result[0] = args[0];
-            Console.WriteLine(args[0]);
-            ntkey.OpenSubKey(args[0].Replace(args[0].Split("\\").Last(),""));
-            result[1] = ntkey.GetValue(args[0].Split("\\").Last()).ToString();
+            result[1] = subkey.GetValue(name)?.ToString();
             return result;
         }
 
@@ -51,17 +59,17 @@ namespace proc_tail.Viewers
         /// <returns>List of 'name - value'</returns>
         public List<string[]> GetManyObjects(string[] args)
         {
-            var key = NtRegistry.CurrentUser;
+            var key = Registry.CurrentUser;
             switch (args[0])
             {
                 case "HKEY_USERS":
-                    key = NtRegistry.Users;
+                    key = Registry.Users;
                     break;
                 case "HKEY_CURRENT_USER":
-                    key = NtRegistry.CurrentUser;
+                    key = Registry.CurrentUser;
                     break;
                 case "HKEY_LOCAL_MACHINE":
-                    key = NtRegistry.LocalMachine;
+                    key = Registry.LocalMachine;
                     break;
             }
 
