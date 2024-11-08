@@ -1,14 +1,7 @@
-﻿using Microsoft.Win32;
-using NTRegistry;
-using proc_tail.Types;
+﻿using proc_tail.Types;
 using proc_tail.Viewers;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
@@ -31,10 +24,10 @@ namespace proc_tail.Commands
             res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath]));
 
             res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath]));
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
+            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath]));
 
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
-            res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript }));
+            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript]));
+            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript]));
 
             foreach (var cc in res) {
                 if (cc[1]=="hidden") {
