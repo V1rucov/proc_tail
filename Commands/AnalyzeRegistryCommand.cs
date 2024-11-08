@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using NTRegistry;
 using proc_tail.Types;
 using proc_tail.Viewers;
 using Spectre.Console;
@@ -25,6 +26,7 @@ namespace proc_tail.Commands
             table.AddColumn("value");
 
             var res = new List<string[]>();
+
             res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot,MainRegistryKeys.RunPath]));
             res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath]));
 
@@ -34,11 +36,12 @@ namespace proc_tail.Commands
             res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.LogonScript }));
             res.AddRange(registryViewer.GetManyObjects(new string[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.WinlogonScript }));
 
-
             foreach (var cc in res) {
-                if (cc[1] == "hidden") cc[1] = registryViewer.GetSingleObject(cc)[1];
-                //table.AddRow(cc[0], cc[1]);
-                Console.WriteLine($"{cc[0]} - {cc[1]}");
+                if (cc[1]=="hidden") {
+                    cc[1] = registryViewer.GetSingleObject(cc)[1];
+                }
+                if (cc[1].ToString() == "System.Byte[]") table.AddRow(cc[0], "bytes");
+                else table.AddRow(cc[0], cc[1]);
             }
             AnsiConsole.Write(table);
             

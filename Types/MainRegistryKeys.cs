@@ -17,5 +17,6 @@ namespace proc_tail.Types
 
         public const string WinlogonScript = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon";
         public const string LogonScript = "Environment";
+        public const string UserLogonScript = "Environment\\UserInitMprLogonScript";
     }
 }

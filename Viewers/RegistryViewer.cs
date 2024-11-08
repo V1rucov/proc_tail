@@ -13,13 +13,10 @@ namespace proc_tail.Viewers
 {
     internal class RegistryViewer : IViewer<string[]>
     {
-        public static UIntPtr HKEY_CURRENT_USER = (UIntPtr)0x80000001;
-        public static UIntPtr HKEY_LOCAL_MACHINE = (UIntPtr)0x80000002;
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="args"> 1 - RegistryKey, 2 - path, 3 - name</param>
+        /// <param name="args"> 1 - RegistryKey</param>
         /// <returns>name - value</returns>
         public string[] GetSingleObject(string[] args)
         {
@@ -35,20 +32,21 @@ namespace proc_tail.Viewers
                     ntkey = NtRegistry.LocalMachine;
                     break;
             }
-
             var splitted = args[0].Split("\\");
             List<string> middlePath = splitted.Skip(1).SkipLast(2).ToList();
             string path = string.Join("\\", middlePath);
             string name = splitted[splitted.Count() - 2];
-
-            Console.WriteLine($"==== {path}");
-            Console.WriteLine($"==== {name}");
+            if (middlePath.Count() < 2) path = middlePath[0];
 
             var subkey = ntkey.OpenSubKey(path);
 
             string[] result = {"",""};
             result[0] = args[0];
-            result[1] = subkey.GetValue(name)?.ToString();
+
+            foreach (var item in subkey.GetValueNames()) 
+                if (item.Contains(name)) 
+                    result[1] = subkey.GetValue(item)?.ToString();
+            
             return result;
         }
 
