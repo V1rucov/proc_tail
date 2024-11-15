@@ -11,14 +11,14 @@ using NTRegistry;
 
 namespace proc_tail.Viewers
 {
-    internal class RegistryViewer : IViewer<string[]>
+    internal class RegistryViewer : AbstractViewer<string[]>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="args"> 1 - RegistryKey</param>
         /// <returns>name - value</returns>
-        public string[] GetSingleObject(string[] args)
+        public override string[] GetSingleObject(string[] args)
         {
             var ntkey = NtRegistry.CurrentUser;
             switch (args[0].Split("\\")[0]) {
@@ -55,7 +55,7 @@ namespace proc_tail.Viewers
         /// </summary>
         /// <param name="args"> 1 - RegistryKey, 2 - path</param>
         /// <returns>List of 'name - value'</returns>
-        public List<string[]> GetManyObjects(string[] args)
+        public override List<string[]> GetManyObjects(string[] args)
         {
             var key = Registry.CurrentUser;
             switch (args[0])

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
-    public class ServiceListCommand : ICommand
+    public class ServiceListCommand : AbstractCommand
     {
         public Regex Command { get; set; } = new Regex("srv list");
 
-        public void Execute(string command)
+        public override void Execute(string command)
         {
             AnsiConsole.WriteLine("[*] Services installed on PC:");
 

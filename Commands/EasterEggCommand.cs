@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
-    internal class EasterEggCommand : ICommand
+    internal class EasterEggCommand : AbstractCommand
     {
         public Regex Command { get; set; } = new Regex(@"easter egg");
 
-        public void Execute(string command)
+        public override void Execute(string command)
         {
             string woman = "Pretty woman!\r\n                               _.._\r\n                             .'    '.\r\n                            (____/`\\ \\\r\n                           (  |' ' )  )\r\n                           )  _\\= _/  (\r\n                 __..---.(`_.'  ` \\    )\r\n                `;-\"\"-._(_( .      `; (\r\n                /       `-`'--'     ; )\r\n               /    /  .    ( .  ,| |(\r\n_.-`'---...__,'    /-,..___.-'--'_| |_)\r\n'-'``'-.._       ,'  |   / .........'\r\n          ``;--\"`;   |   `-`\r\n             `'..__.'";
             Console.WriteLine(woman);

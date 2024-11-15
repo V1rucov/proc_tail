@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
-    internal class TreeSnapshotCommand : ICommand
+    internal class TreeSnapshotCommand : AbstractCommand
     {
         public Regex Command { get; set; } = new Regex(@"process tree (\d+)");
 
-        public void Execute(string command) {
+        public override void Execute(string command) {
             int PID = Int32.Parse(Command.Match(command).Groups[1].Value);
             var Viewer = new ProcessViewer();
             string[] arg = { PID.ToString() };

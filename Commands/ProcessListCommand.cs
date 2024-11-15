@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
-    internal class ProcessListCommand : ICommand
+    internal class ProcessListCommand : AbstractCommand
     {
         public Regex Command { get; set; } = new Regex(@"process list");
 
-        public void Execute(string command)
+        public override void Execute(string command)
         {
             var mos = new ManagementObjectSearcher($"SELECT * FROM Win32_Process");
             var array = mos.Get().Cast<ManagementObject>().ToArray();

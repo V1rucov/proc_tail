@@ -5,11 +5,11 @@ using System.Text.RegularExpressions;
 
 namespace proc_tail.Commands
 {
-    public class AnalyzeRegistryCommand : ICommand
+    public class AnalyzeRegistryCommand : AbstractCommand
     {
         public Regex Command { get; set; } = new Regex(@"reg list");
 
-        public void Execute(string command)
+        public override void Execute(string command)
         {
             AnsiConsole.WriteLine("[*] Important registry keys:");
 

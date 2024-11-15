@@ -1,4 +1,5 @@
-﻿using proc_tail.Viewers;
+﻿using proc_tail.OutputFormats;
+using proc_tail.Viewers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
-    public interface ICommand
+    public abstract class AbstractCommand
     {
-        public void Execute(string command);
+        public abstract void Execute(string command);
+        public AbstractOutputFormat OutputFormat { get; set; }
         public Regex Command { get; set; }
     }
 }

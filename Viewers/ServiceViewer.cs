@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Viewers
 {
-    public class ServiceViewer : IViewer<SimplifiedService>
+    public class ServiceViewer : AbstractViewer<SimplifiedService>
     {
-        public List<SimplifiedService> GetManyObjects(string[] args)
+        public override List<SimplifiedService> GetManyObjects(string[] args)
         {
             var mos = new ManagementObjectSearcher($"SELECT * FROM Win32_Service");
             
@@ -24,7 +24,7 @@ namespace proc_tail.Viewers
             return list;
         }
 
-        public SimplifiedService GetSingleObject(string[] args)
+        public override SimplifiedService GetSingleObject(string[] args)
         {
             throw new NotImplementedException();
         }

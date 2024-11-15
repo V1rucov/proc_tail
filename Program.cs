@@ -8,9 +8,9 @@ using Spectre.Console;
 
 namespace proc_tail {
     public static class Program {
-        static ICommand command;
+        static AbstractCommand command;
 
-        static List<ICommand>? Commands = new List<ICommand>() {
+        static List<AbstractCommand>? Commands = new List<AbstractCommand>() {
             new AnalyzeRegistryCommand(),
             new EasterEggCommand(),
             new ProcessListCommand(),
