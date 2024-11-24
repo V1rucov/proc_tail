@@ -13,6 +13,6 @@ namespace proc_tail.Commands
     {
         public abstract void Execute(string command);
         public AbstractOutputFormat OutputFormat { get; set; }
-        public Regex Command { get; set; }
+        public abstract Regex Command { get; set; }
     }
 }

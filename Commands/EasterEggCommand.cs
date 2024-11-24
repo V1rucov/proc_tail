@@ -9,7 +9,7 @@ namespace proc_tail.Commands
 {
     internal class EasterEggCommand : AbstractCommand
     {
-        public Regex Command { get; set; } = new Regex(@"easter egg");
+        public override Regex Command { get; set; } = new Regex(@"easter egg");
 
         public override void Execute(string command)
         {

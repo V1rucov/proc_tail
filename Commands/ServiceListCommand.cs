@@ -11,7 +11,7 @@ namespace proc_tail.Commands
 {
     public class ServiceListCommand : AbstractCommand
     {
-        public Regex Command { get; set; } = new Regex("srv list");
+        public override Regex Command { get; set; } = new Regex("srv list");
 
         public override void Execute(string command)
         {

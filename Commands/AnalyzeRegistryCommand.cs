@@ -7,7 +7,7 @@ namespace proc_tail.Commands
 {
     public class AnalyzeRegistryCommand : AbstractCommand
     {
-        public Regex Command { get; set; } = new Regex(@"reg list");
+        public override Regex Command { get; set; } = new Regex(@"reg list");
 
         public override void Execute(string command)
         {

@@ -12,7 +12,7 @@ namespace proc_tail.Commands
 {
     internal class ProcessListCommand : AbstractCommand
     {
-        public Regex Command { get; set; } = new Regex(@"process list");
+        public override Regex Command { get; set; } = new Regex(@"process list");
 
         public override void Execute(string command)
         {

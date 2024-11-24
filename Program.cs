@@ -15,7 +15,8 @@ namespace proc_tail {
             new EasterEggCommand(),
             new ProcessListCommand(),
             new TreeSnapshotCommand(),
-            new ServiceListCommand()
+            new ServiceListCommand(),
+            new TaskListCommand()
         };
 
         static Panel Header = new Panel("[yellow]Windows Persistence Checker\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
