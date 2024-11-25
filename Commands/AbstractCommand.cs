@@ -11,6 +11,9 @@ namespace proc_tail.Commands
 {
     public abstract class AbstractCommand
     {
+        public AbstractCommand(AbstractOutputFormat OutputFormat) {
+            this.OutputFormat = OutputFormat;
+        }
         public abstract void Execute(string command);
         public AbstractOutputFormat OutputFormat { get; set; }
         public abstract Regex Command { get; set; }

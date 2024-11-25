@@ -1,4 +1,5 @@
-﻿using System;
+﻿using proc_tail.OutputFormats;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace proc_tail.Commands
 {
     internal class EasterEggCommand : AbstractCommand
     {
+        public EasterEggCommand(AbstractOutputFormat OutputFormat) : base(OutputFormat) { }
         public override Regex Command { get; set; } = new Regex(@"easter egg");
 
         public override void Execute(string command)

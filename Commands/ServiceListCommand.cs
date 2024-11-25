@@ -1,4 +1,5 @@
-﻿using proc_tail.Viewers;
+﻿using proc_tail.OutputFormats;
+using proc_tail.Viewers;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -11,23 +12,15 @@ namespace proc_tail.Commands
 {
     public class ServiceListCommand : AbstractCommand
     {
+        public ServiceListCommand(AbstractOutputFormat OutputFormat) : base(OutputFormat) { }
         public override Regex Command { get; set; } = new Regex("srv list");
 
         public override void Execute(string command)
         {
-            AnsiConsole.WriteLine("[*] Services installed on PC:");
-
             ServiceViewer serviceViewer = new ServiceViewer();
-            Table table = new Table();
-            table.AddColumn("PID");
-            table.AddColumn("Name");
-            table.AddColumn("Path");
-
             var list = serviceViewer.GetManyObjects(new string[]{ });
-            foreach (var item in list) {
-                table.AddRow(item.ProcessId.ToString(), item.Name.ToString(), item.PathName.ToString());
-            }
-            AnsiConsole.Write(table);
+
+            OutputFormat.DisplayManyObjects("[*] Services installed on PC:", list.ToArray());
         }
     }
 }

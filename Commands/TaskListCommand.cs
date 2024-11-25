@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.TaskScheduler;
+using proc_tail.OutputFormats;
 using proc_tail.Viewers;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace proc_tail.Commands
 {
     public class TaskListCommand : AbstractCommand
     {
+        public TaskListCommand(AbstractOutputFormat OutputFormat) : base(OutputFormat) { }
         public override Regex Command { get; set; } = new Regex("task list");
         public override void Execute(string command)
         {

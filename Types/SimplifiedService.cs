@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Types
 {
-    public class SimplifiedService
+    public class SimplifiedService : IDisplayable
     {
         public string Name { get; set; }
         public string DisplayName { get; set; }
@@ -17,6 +17,10 @@ namespace proc_tail.Types
         public string Status { get; set; }
         public string InstallDate { get; set; }
         public string PathName { get; set; }
+
+        public string[] GetStringCol() => ["PID","Name","Path"];
+
+        public string[] GetStringRow() => [ProcessId.ToString(), Name, PathName];
 
         public static implicit operator SimplifiedService(ManagementObject srv)
         {

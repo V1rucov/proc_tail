@@ -11,8 +11,6 @@ namespace proc_tail.Viewers
     {
         public override List<Microsoft.Win32.TaskScheduler.Task> GetManyObjects(string[] args) => TaskService.Instance.AllTasks.ToList();//EnumFolderTasks(TaskService.Instance.RootFolder);
 
-
-
         public override Microsoft.Win32.TaskScheduler.Task GetSingleObject(string[] args)
         {
             throw new NotImplementedException();

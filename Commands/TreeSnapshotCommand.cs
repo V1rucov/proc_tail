@@ -1,4 +1,5 @@
-﻿using proc_tail.Types;
+﻿using proc_tail.OutputFormats;
+using proc_tail.Types;
 using proc_tail.Viewers;
 using Spectre.Console;
 using System;
@@ -12,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Commands
 {
+    //TODO: output format
     public class TreeSnapshotCommand : AbstractCommand
     {
+        public TreeSnapshotCommand(AbstractOutputFormat OutputFormat) : base(OutputFormat) { }
         public override Regex Command { get; set; } = new Regex(@"process tree (\d+)");
 
         public override void Execute(string command) {
