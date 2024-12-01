@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace proc_tail.Types
 {
-    //TODO: simplified task
-    public class SimplifiedTask : IDisplayable
+    public class SimplifiedWMISub : IDisplayable
     {
-
         public string[] GetStringCol()
         {
             throw new NotImplementedException();
@@ -21,12 +19,12 @@ namespace proc_tail.Types
             throw new NotImplementedException();
         }
 
-        public static implicit operator SimplifiedTask(Microsoft.Win32.TaskScheduler.Task task)
-        {
-            SimplifiedTask st = new SimplifiedTask();
-            
-
-            return st;
+        public static implicit operator SimplifiedWMISub(ManagementObject subscription) {
+            //TODO: type casting
+            foreach (var sub in subscription.Properties) { 
+                Console.WriteLine($"{sub.Name} - {sub.Value}");
+            }
+            return new SimplifiedWMISub();
         }
     }
 }

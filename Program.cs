@@ -18,10 +18,11 @@ namespace proc_tail {
             new ProcessListCommand(outputFormat),
             new TreeSnapshotCommand(outputFormat),
             new ServiceListCommand(outputFormat),
-            new TaskListCommand(outputFormat)
+            new TaskListCommand(outputFormat),
+            new WMISubscriptionsListCommand(outputFormat)
         };
 
-        static Panel Header = new Panel("[yellow]Windows Persistence Checker\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
+        static Panel Header = new Panel("[yellow]Persistent malware searcher for Windows\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
 
         public static void Main() {
             Header.Header = new PanelHeader("proc_tail");

@@ -1,5 +1,12 @@
-﻿Services
-Jobs / Tasks
-Users
-Kaspersky TIP
-VirusTotal
+﻿to be done:
+-Kaspersky TIP
+-VirusTotal
+-ps profile
+-DLL hijacking (???)
+--msdtc
+--msinfo
+--narrator
+-COM hijacking
+-COM proxying
+-bitsadmin
+-netsh
