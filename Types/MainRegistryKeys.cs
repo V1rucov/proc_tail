@@ -15,8 +15,9 @@ namespace proc_tail.Types
         public const string RunPath = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
         public const string RunOncePath = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce";
 
-        public const string WinlogonScript = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon";
-        public const string LogonScript = "Environment";
-        public const string UserLogonScript = "Environment\\UserInitMprLogonScript";
+        public const string Winlogon = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon";
+
+        public const string Enviroonment = "Environment";
+        //public const string UserLogonScript = "Environment\\UserInitMprLogonScript";
     }
 }
