@@ -1,6 +1,6 @@
 ﻿using proc_tail.OutputFormats;
 using proc_tail.Types;
-using Spectre.Console;
+//using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

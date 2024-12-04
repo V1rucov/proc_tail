@@ -11,8 +11,8 @@ namespace proc_tail.Types
     {
         public string Key { get; set; }
         public string Value { get; set; }
-        public string[] GetStringCol() => ["Key", "Value"];
-        public string[] GetStringRow() => [Key, Value];
+        public string[] GetStringCol() => new string[] { "Key", "Value" };
+        public string[] GetStringRow() => new string[] { Key, Value };
 
         public static implicit operator SimplifiedRegKey(string[] RegKey)
         {

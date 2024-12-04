@@ -17,7 +17,7 @@ namespace proc_tail.Commands
         public override void Execute(string command)
         {
             TaskViewer taskViewer = new TaskViewer();
-            var tasks = taskViewer.GetManyObjects([]);
+            var tasks = taskViewer.GetManyObjects(new string[] { });
             foreach (var task in tasks) {
                 foreach (var act in task.Definition.Actions) {
                     Console.WriteLine($"{act}");

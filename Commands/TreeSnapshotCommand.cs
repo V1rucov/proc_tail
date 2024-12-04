@@ -1,13 +1,14 @@
 ﻿using proc_tail.OutputFormats;
 using proc_tail.Types;
 using proc_tail.Viewers;
-using Spectre.Console;
+//using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
+//using System.Text.Json;
+using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -25,12 +26,12 @@ namespace proc_tail.Commands
             string[] arg = { PID.ToString() };
             SimplifiedProcess proc = Viewer.GetSingleObject(arg);
             if (proc == null) throw new NullReferenceException("process not found");
-            AnsiConsole.Markup($"\tProcess: {proc.Name}\n");
+            //AnsiConsole.Markup($"\tProcess: {proc.Name}\n");
             GetParents(proc, Viewer);
             string path = AppDomain.CurrentDomain.BaseDirectory + $"{proc.Name}-{proc.Pid}.json";
-            AnsiConsole.Markup($"\tJson file (process tree) created at {path}\n");
+            //AnsiConsole.Markup($"\tJson file (process tree) created at {path}\n");
             using (StreamWriter sw = new StreamWriter(path)) {
-                sw.Write(JsonSerializer.Serialize(proc));
+                //sw.Write(JsonSerializer.Serialize(proc));
             }
         }
 

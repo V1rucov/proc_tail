@@ -11,9 +11,9 @@ namespace proc_tail.Types
         public string ExecutablePath { get; set; }
         public int Pid { get; set; }
 
-        public string[] GetStringCol() => ["PID","Name", "Executable" ];
+        public string[] GetStringCol() => new string[] { "PID", "Name", "Executable" };
 
-        public string[] GetStringRow() => [Pid.ToString(), Name, ExecutablePath];
+        public string[] GetStringRow() => new string[] { Pid.ToString(), Name, ExecutablePath };
 
         public static implicit operator SimplifiedProcess(ManagementObject proc)
         {

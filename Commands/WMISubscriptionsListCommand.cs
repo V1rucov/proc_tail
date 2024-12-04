@@ -18,7 +18,7 @@ namespace proc_tail.Commands
         public override void Execute(string command)
         {
             WMISubViewer wMISubViewer = new WMISubViewer();
-            var list = wMISubViewer.GetManyObjects(["root\\subscription", "CommandLineEventConsumer"]);
+            var list = wMISubViewer.GetManyObjects(new string[] { "root\\subscription", "CommandLineEventConsumer" });
 
             OutputFormat.DisplayManyObjects("[*] WMI Subscriptions on PC:", list.ToArray());
         }

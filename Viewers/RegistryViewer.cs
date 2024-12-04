@@ -21,7 +21,7 @@ namespace proc_tail.Viewers
         public override string[] GetSingleObject(string[] args)
         {
             var ntkey = NtRegistry.CurrentUser;
-            switch (args[0].Split("\\")[0]) {
+            switch (args[0].Split('\\')[0]) {
                 case "HKEY_USERS":
                     ntkey = NtRegistry.Users;
                     break;
@@ -32,8 +32,15 @@ namespace proc_tail.Viewers
                     ntkey = NtRegistry.LocalMachine;
                     break;
             }
-            var splitted = args[0].Split("\\");
-            List<string> middlePath = splitted.Skip(1).SkipLast(2).ToList();
+            var splitted = args[0].Split('\\');
+            //List<string> middlePath = splitted.Skip(1).SkipLast(2).ToList();
+
+            List<string> middlePath = splitted
+                .Skip(1)
+                .Take(splitted.Count() - 3) 
+                .ToList();
+
+
             string path = string.Join("\\", middlePath);
             string name = splitted[splitted.Count() - 2];
             if (middlePath.Count() < 2) path = middlePath[0];

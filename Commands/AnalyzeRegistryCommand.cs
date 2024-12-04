@@ -1,7 +1,7 @@
 ﻿using proc_tail.OutputFormats;
 using proc_tail.Types;
 using proc_tail.Viewers;
-using Spectre.Console;
+//using Spectre.Console;
 using System.Text.RegularExpressions;
 
 namespace proc_tail.Commands
@@ -13,21 +13,21 @@ namespace proc_tail.Commands
 
         public override void Execute(string command)
         {
-            AnsiConsole.WriteLine();
+            //AnsiConsole.WriteLine();
 
             RegistryViewer registryViewer = new RegistryViewer();
 
             List<SimplifiedRegKey> simplifiedRegKeys = new List<SimplifiedRegKey>();
             var res = new List<string[]>();
 
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunPath]));
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath]));
+            res.AddRange(registryViewer.GetManyObjects(new[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunPath }));
+            res.AddRange(registryViewer.GetManyObjects(new[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath }));
 
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath]));
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath]));
+            res.AddRange(registryViewer.GetManyObjects(new[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath }));
+            res.AddRange(registryViewer.GetManyObjects(new[] { MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath }));
 
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.Enviroonment]));
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.Winlogon]));
+            res.AddRange(registryViewer.GetManyObjects(new[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.Enviroonment }));
+            res.AddRange(registryViewer.GetManyObjects(new[] { MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.Winlogon }));
 
             foreach (var cc in res)
             {

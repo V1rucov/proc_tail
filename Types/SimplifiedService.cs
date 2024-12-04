@@ -18,9 +18,9 @@ namespace proc_tail.Types
         public string InstallDate { get; set; }
         public string PathName { get; set; }
 
-        public string[] GetStringCol() => ["PID","Name","Path"];
+        public string[] GetStringCol() => new string[] { "PID", "Name", "Path" };
 
-        public string[] GetStringRow() => [ProcessId.ToString(), Name, PathName];
+        public string[] GetStringRow() => new string[] { ProcessId.ToString(), Name, PathName };
 
         public static implicit operator SimplifiedService(ManagementObject srv)
         {

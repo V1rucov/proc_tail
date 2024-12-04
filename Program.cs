@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using proc_tail.Commands;
 using proc_tail.OutputFormats;
 using proc_tail.Viewers;
-using Spectre.Console;
+using Terminal.Gui;
 
 namespace proc_tail {
     public static class Program {
@@ -22,20 +22,20 @@ namespace proc_tail {
             new WMISubscriptionsListCommand(outputFormat)
         };
 
-        static Panel Header = new Panel("[yellow]Persistent malware searcher for Windows\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
+        //static Panel Header = new Panel("[yellow]Persistent malware searcher for Windows\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
 
         public static void Main() {
-            Header.Header = new PanelHeader("proc_tail");
-            AnsiConsole.Write(Header);
-
+            //Header.Header = new PanelHeader("proc_tail");
+            //AnsiConsole.Write(Header);
+            Console.WriteLine("TEST");
             while (true)
             {
                 try
                 {
-                    string _m = AnsiConsole.Ask<string>($"[yellow]{Environment.UserName}[/]:> ");
-                    command = Commands.FirstOrDefault(c => c.Command.Match(_m).Success);
-                    if (command != null) command.Execute(_m);
-                    else AnsiConsole.WriteLine("\t wrong command");
+                    //string _m = AnsiConsole.Ask<string>($"[yellow]{Environment.UserName}[/]:> ");
+                    //command = Commands.FirstOrDefault(c => c.Command.Match(_m).Success);
+                    //if (command != null) command.Execute(_m);
+                    //else AnsiConsole.WriteLine("\t wrong command");
                 }
                 catch (Exception ex)
                 {
@@ -58,7 +58,7 @@ namespace proc_tail {
                     Console.WriteLine();
                 }
                 finally {
-                    AnsiConsole.Write(new Rule());
+                    //AnsiConsole.Write(new Rule());
                 }
             }
         }
