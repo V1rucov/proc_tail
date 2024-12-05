@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Management;
+using WmiLight;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +16,7 @@ namespace proc_tail.Types
         public string[] GetStringCol() => ["CommandLine", "Desktop name", "Executable path", "Name"];
         public string[] GetStringRow() => [CommandLineTemplate, DesktopName, ExecutablePath, Name];
 
-        public static implicit operator SimplifiedWMISub(ManagementObject subscription) {
+        public static implicit operator SimplifiedWMISub(WmiObject subscription) {
             var ss = new SimplifiedWMISub();
             ss.CommandLineTemplate = subscription["CommandLineTemplate"]?.ToString() ?? "null";
             ss.DesktopName = subscription["DesktopName"]?.ToString() ?? "null";

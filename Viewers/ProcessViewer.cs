@@ -1,5 +1,7 @@
-﻿using System.Management;
+﻿using System.Diagnostics;
+using System.Management;
 using proc_tail.Types;
+using WmiLight;
 
 namespace proc_tail.Viewers
 {
@@ -9,14 +11,21 @@ namespace proc_tail.Viewers
         {
             int ProcessId = Int32.Parse(args[0]);
             if (ProcessId == -1) return null;
-            var mos = new ManagementObjectSearcher($"SELECT * FROM Win32_Process WHERE ProcessId = {ProcessId}");
-            var array = mos.Get().Cast<ManagementObject>().ToArray();
-            if (array.Count() != 0) return array.First();
-            else return null;
+            using (WmiConnection con = new WmiConnection()) {
+                var list = con.CreateQuery($"SELECT * FROM Win32_Process WHERE ProcessId = {ProcessId}").ToList();
+                if (list.Count() != 0) return list.First();
+                else return null;
+            }
         }
 
         public override List<SimplifiedProcess> GetManyObjects(string[] args) {
-            throw new NotImplementedException();
+            using (WmiConnection con = new WmiConnection())
+            {
+                var list = con.CreateQuery($"SELECT * FROM Win32_Process").ToList();
+                List<SimplifiedProcess> simplifiedProcesses = new List<SimplifiedProcess>();
+                list.ForEach(o => simplifiedProcesses.Add(o));
+                return simplifiedProcesses;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Management;
+using WmiLight;
 
 namespace proc_tail.Types
 {
@@ -15,7 +16,7 @@ namespace proc_tail.Types
 
         public string[] GetStringRow() => [Pid.ToString(), Name, ExecutablePath];
 
-        public static implicit operator SimplifiedProcess(ManagementObject proc)
+        public static implicit operator SimplifiedProcess(WmiObject proc)
         {
             //TODO: GetOwner
             SimplifiedProcess sp = new SimplifiedProcess();

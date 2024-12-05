@@ -4,6 +4,7 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading.Tasks;
+using WmiLight;
 
 namespace proc_tail.Types
 {
@@ -22,7 +23,7 @@ namespace proc_tail.Types
 
         public string[] GetStringRow() => [ProcessId.ToString(), Name, PathName];
 
-        public static implicit operator SimplifiedService(ManagementObject srv)
+        public static implicit operator SimplifiedService(WmiObject srv)
         {
             SimplifiedService ss = new SimplifiedService();
             ss.Name = srv["Name"]?.ToString() ?? "-";

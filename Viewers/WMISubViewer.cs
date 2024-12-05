@@ -5,6 +5,7 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading.Tasks;
+using WmiLight;
 
 namespace proc_tail.Viewers
 {
@@ -18,16 +19,14 @@ namespace proc_tail.Viewers
         /// <exception cref="NotImplementedException"></exception>
         public override List<SimplifiedWMISub> GetManyObjects(string[] args)
         {
-            ManagementScope scope = new ManagementScope($"\\\\.\\{args[0]}");
-            scope.Connect();
+            using (WmiConnection con = new WmiConnection($"\\\\.\\{args[0]}")) {
+                var list = con.CreateQuery($"SELECT * FROM {args[1]}").ToList();
+                //ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
 
-            ObjectQuery query = new ObjectQuery($"SELECT * FROM {args[1]}");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
-
-            var array = searcher.Get().Cast<ManagementObject>().ToList();
-            List<SimplifiedWMISub> simplifiedWMISubs = new List<SimplifiedWMISub>();
-            array.ForEach(s => { simplifiedWMISubs.Add(s); });
-            return simplifiedWMISubs;
+                List<SimplifiedWMISub> simplifiedWMISubs = new List<SimplifiedWMISub>();
+                list.ForEach(s => { simplifiedWMISubs.Add(s); });
+                return simplifiedWMISubs;
+            }
         }
 
         public override SimplifiedWMISub GetSingleObject(string[] args)

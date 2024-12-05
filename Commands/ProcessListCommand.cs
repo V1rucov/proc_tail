@@ -1,5 +1,6 @@
 ﻿using proc_tail.OutputFormats;
 using proc_tail.Types;
+using proc_tail.Viewers;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,10 @@ namespace proc_tail.Commands
 
         public override void Execute(string command)
         {
-            var mos = new ManagementObjectSearcher($"SELECT * FROM Win32_Process");
-            var array = mos.Get().Cast<ManagementObject>().ToArray();
-            List<SimplifiedProcess> simplifiedProcesses = new List<SimplifiedProcess>();
-            foreach (var process in array) { 
-                simplifiedProcesses.Add(process);
-            }
+            var viewer = new ProcessViewer();
+            var list = viewer.GetManyObjects([]);
 
-            OutputFormat.DisplayManyObjects("[*] All processes:", simplifiedProcesses.ToArray());
+            OutputFormat.DisplayManyObjects("[*] All processes:", list.ToArray());
         }
     }
 }

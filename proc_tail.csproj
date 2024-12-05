@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,6 +10,8 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
     <ApplicationIcon>logo.ico</ApplicationIcon>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <PublishWmiLightStaticallyLinked>true</PublishWmiLightStaticallyLinked>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +23,7 @@
     <PackageReference Include="Spectre.Console" Version="0.49.1" />
     <PackageReference Include="System.Management" Version="8.0.0" />
     <PackageReference Include="TaskScheduler" Version="2.11.0" />
+    <PackageReference Include="WmiLight" Version="6.9.0" />
   </ItemGroup>
 
   <ItemGroup>
