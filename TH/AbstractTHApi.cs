@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace proc_tail.TI
 {
-    public abstract class AbstractTIApi
+    public abstract class AbstractTHApi
     {
 
     }

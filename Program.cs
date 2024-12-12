@@ -19,7 +19,8 @@ namespace proc_tail {
             new TreeSnapshotCommand(outputFormat),
             new ServiceListCommand(outputFormat),
             new TaskListCommand(outputFormat),
-            new WMISubscriptionsListCommand(outputFormat)
+            new WMISubscriptionsListCommand(outputFormat),
+            new ScanCommand(outputFormat)
         };
 
         static Panel Header = new Panel("[yellow]Persistent malware searcher for Windows\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");

@@ -20,14 +20,14 @@ namespace proc_tail.Commands
             List<SimplifiedRegKey> simplifiedRegKeys = new List<SimplifiedRegKey>();
             var res = new List<string[]>();
 
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunPath]));
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.RunOncePath]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.RunPath]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.RunOncePath]));
 
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunPath]));
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.MachineRoot, MainRegistryKeys.RunOncePath]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.MachineRoot, RunKeys.RunPath]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.MachineRoot, RunKeys.RunOncePath]));
 
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.Enviroonment]));
-            res.AddRange(registryViewer.GetManyObjects([MainRegistryKeys.CurrentUserRoot, MainRegistryKeys.Winlogon]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.Enviroonment]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.Winlogon]));
 
             foreach (var cc in res)
             {
