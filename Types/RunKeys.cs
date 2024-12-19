@@ -33,7 +33,7 @@ namespace proc_tail.Types
 
         //
 
-        public const string UserStartupFolder = "C:\\Users[Username]\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+        public const string UserStartupFolder = "C:\\Users\\[Username]\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
         public const string MachineStartupFolder = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp";
     }
 }
