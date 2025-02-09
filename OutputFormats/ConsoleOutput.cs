@@ -1,11 +1,5 @@
 ﻿using proc_tail.Types;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace proc_tail.OutputFormats
 {
@@ -13,6 +7,11 @@ namespace proc_tail.OutputFormats
     {
         public override void DisplayManyObjects(string message, IDisplayable[] displayables)
         {
+            if (displayables == null || displayables.Length == 0)
+            {
+                AnsiConsole.WriteLine("Nothing to show, seems empty...");
+                return;
+            }
             AnsiConsole.WriteLine(message);
 
             var table = new Grid();
@@ -26,7 +25,22 @@ namespace proc_tail.OutputFormats
 
         public override void DisplaySingleObject(string message, IDisplayable displayable)
         {
-            throw new NotImplementedException();
+            if (displayable == null)
+            {
+                AnsiConsole.WriteLine("Nothing to show, seems empty...");
+                return;
+            }
+            AnsiConsole.WriteLine(message);
+
+            var table = new Grid();
+            foreach (var col in displayable.GetStringCol()) {
+                table.AddColumn();
+            }
+
+            table.AddRow(displayable.GetStringCol());
+            table.AddRow(displayable.GetStringRow());
+
+            AnsiConsole.Write(table);
         }
     }
 }

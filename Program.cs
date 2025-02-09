@@ -1,10 +1,8 @@
 ﻿#define DEV
 
-using System;
-using System.Text.RegularExpressions;
 using proc_tail.Commands;
 using proc_tail.OutputFormats;
-using proc_tail.Viewers;
+using proc_tail.TI;
 using Spectre.Console;
 
 namespace proc_tail {
@@ -29,6 +27,9 @@ namespace proc_tail {
         public static void Main() {
             Header.Header = new PanelHeader("proc_tail");
             AnsiConsole.Write(Header);
+
+            var vt = new VirusTotalApi("97b394296d73c2c09f0611828dfbbdc0b8e3d5fede5aef48754e193f34e1dbdd");
+            vt.CheckHash("fb55414848281f804858ce188c3dc659d129e283bd62d58d34f6e6f568feab37"); 
 
             while (true)
             {

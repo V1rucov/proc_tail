@@ -8,6 +8,8 @@ namespace proc_tail.TI
 {
     public class Threat
     {
-
+        public string FilePath {get; set;}
+        public string FileName {get; set;}
+        public string Hash{get; set;}
     }
 }

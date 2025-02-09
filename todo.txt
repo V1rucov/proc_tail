@@ -1,12 +1,8 @@
 ﻿to be done:
-AV:
--Kaspersky TIP
--VirusTotal
+
 Detects:
--ps profile
--startup folders
--bitsadmin
--netsh
+-bitsadmin ????
+-netsh ????
 -DLL hijacking (???)
 --msdtc
 --msinfo

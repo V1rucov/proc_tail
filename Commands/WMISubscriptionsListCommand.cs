@@ -13,7 +13,7 @@ namespace proc_tail.Commands
     {
         public WMISubscriptionsListCommand(AbstractOutputFormat OutputFormat) : base(OutputFormat) { }
 
-        public override Regex Command { get; set; } = new Regex("wmi sub list");
+        public override Regex Command { get; set; } = new Regex("wmi-sub list");
 
         public override void Execute(string command)
         {
