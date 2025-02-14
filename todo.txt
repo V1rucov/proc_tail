@@ -1,8 +1,4 @@
-﻿to be done:
-
-Detects:
--bitsadmin ????
--netsh ????
+﻿Detects to be done:
 -DLL hijacking (???)
 --msdtc
 --msinfo

@@ -1,19 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
+using Newtonsoft.Json;
 
 namespace proc_tail.TI
 {
     public class VirusTotalApi
     {
-        public VirusTotalApi(string Token){
-            this.Token = Token;
+        public VirusTotalApi(){
+            Token = ConfigurationManager.AppSettings["Token"];
         }
         public string Token { get; set;}
 
-        public async void CheckHash(string hash)
+        public VirusTotalResponse CheckHash(string hash)
         {
             HttpClient client = new HttpClient();
 
@@ -23,16 +20,17 @@ namespace proc_tail.TI
 
             try
             {
-                HttpResponseMessage response = await client.GetAsync(url);
+                HttpResponseMessage response = client.GetAsync(url).Result;
                 response.EnsureSuccessStatusCode();
 
-                string responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<VirusTotalResponse>(responseBody);
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", e.Message);
+                return null;
             }
 
         }

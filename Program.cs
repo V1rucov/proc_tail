@@ -9,6 +9,7 @@ namespace proc_tail {
     public static class Program {
         static AbstractCommand command;
         static AbstractOutputFormat outputFormat = new ConsoleOutput();
+        public static Grid CurrentGrid = new Grid();
 
         static List<AbstractCommand>? Commands = new List<AbstractCommand>() {
             new AnalyzeRegistryCommand(outputFormat),
@@ -20,6 +21,7 @@ namespace proc_tail {
             new WMISubscriptionsListCommand(outputFormat),
             new ScanCommand(outputFormat),
             new StartupFolderListCommand(outputFormat),
+            new CheckHashCommand(outputFormat)
         };
 
         static Panel Header = new Panel("[yellow]Persistent malware searcher for Windows\nAuthor - V1rucov \ngithub - https://github.com/V1rucov/proc_tail[/]");
@@ -27,9 +29,6 @@ namespace proc_tail {
         public static void Main() {
             Header.Header = new PanelHeader("proc_tail");
             AnsiConsole.Write(Header);
-
-            var vt = new VirusTotalApi("97b394296d73c2c09f0611828dfbbdc0b8e3d5fede5aef48754e193f34e1dbdd");
-            vt.CheckHash("fb55414848281f804858ce188c3dc659d129e283bd62d58d34f6e6f568feab37"); 
 
             while (true)
             {

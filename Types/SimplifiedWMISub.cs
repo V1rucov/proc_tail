@@ -13,8 +13,8 @@ namespace proc_tail.Types
         public string DesktopName { get; set; }
         public string ExecutablePath { get; set; }
         public string Name { get; set; }
-        public string[] GetStringCol() => ["CommandLine", "Desktop name", "Executable path", "Name"];
-        public string[] GetStringRow() => [CommandLineTemplate, DesktopName, ExecutablePath, Name];
+        public string[] GetStringCol() => ["CommandLine", "Desktop name", "Name", "Executable path"];
+        public string[] GetStringRow() => [CommandLineTemplate, DesktopName, Name, ExecutablePath];
 
         public static implicit operator SimplifiedWMISub(WmiObject subscription) {
             var ss = new SimplifiedWMISub();

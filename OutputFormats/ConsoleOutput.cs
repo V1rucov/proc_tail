@@ -15,10 +15,14 @@ namespace proc_tail.OutputFormats
             AnsiConsole.WriteLine(message);
 
             var table = new Grid();
+            table.AddColumn();
             foreach (var col in displayables[0].GetStringCol()) {
                 table.AddColumn();
             }
-            table.AddRow(displayables[0].GetStringCol());
+
+            var displ = new string[]{"n"}.Concat(displayables[0].GetStringCol()).ToArray();
+
+            table.AddRow(displ);
             foreach (var cc in displayables) table.AddRow(cc.GetStringRow());
             AnsiConsole.Write(table);
         }
