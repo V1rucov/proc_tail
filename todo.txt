@@ -1,7 +1,0 @@
-﻿Detects to be done:
--DLL hijacking (???)
---msdtc
---msinfo
---narrator
---COM hijacking
---COM proxying

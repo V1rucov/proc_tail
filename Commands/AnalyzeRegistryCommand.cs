@@ -28,6 +28,13 @@ namespace proc_tail.Commands
 
             res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.Enviroonment]));
             res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.Winlogon]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.MachineRoot, RunKeys.Winlogon]));
+
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.MachineRoot, RunKeys.Explorer]));
+            res.AddRange(registryViewer.GetManyObjects([RunKeys.CurrentUserRoot, RunKeys.Explorer]));
+            
+            //res.AddRange(registryViewer.GetManyObjects([RunKeys.MachineRoot, RunKeys.SessionManager]));
+            //res.AddRange(registryViewer.GetManyObjects([RunKeys.MachineRoot, RunKeys.TimeProvider]));
 
             foreach (var cc in res)
             {

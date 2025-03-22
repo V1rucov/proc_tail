@@ -19,9 +19,6 @@ namespace proc_tail.Types
 
         public const string Winlogon = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon";
 
-        public const string RunServicesOnce = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce";
-        public const string RunServices = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServices";
-
         public const string ExplorerRun = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run";
         public const string Explorer = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer"; //User Shell Folders | Shell Folders
 
