@@ -74,11 +74,12 @@ namespace proc_tail.Viewers
             List<string[]> results = new List<string[]>();
 
             var keys = key.OpenSubKey(args[1]);
-            foreach (var cc in keys.GetValueNames())
-            {
-                string value = keys.GetValue(cc)?.ToString() ?? "hidden";
-                results.Add(new string[] { $"{args[0]}\\{args[1]}\\{cc}", value });
-            }
+            if(keys != null)
+                foreach (var cc in keys.GetValueNames())
+                {
+                    string value = keys.GetValue(cc)?.ToString() ?? "hidden";
+                    results.Add(new string[] { $"{args[0]}\\{args[1]}\\{cc}", value });
+                }
             key.Close();
             return results;
         }
